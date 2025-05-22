@@ -5,6 +5,7 @@ import re
 import os
 
 openai.api_key = os.getenv("OPENROUTER_API_KEY")
+#client = openai.OpenAI(api_key=os.getenv("OPENROUTER_API_KEY"))
 #openai.api_key = "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"
 openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
 
