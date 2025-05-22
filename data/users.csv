@@ -1,0 +1,101 @@
+user_id,age,gender,location,education_level
+user_0,56,Male,Texas,PhD
+user_1,69,Male,New York,High School
+user_2,46,Male,Florida,PhD
+user_3,32,Other,Texas,High School
+user_4,60,Male,California,College Senior
+user_5,25,Male,Florida,PhD
+user_6,38,Other,California,Master
+user_7,56,Other,California,High School
+user_8,36,Other,New York,High School
+user_9,40,Male,Florida,PhD
+user_10,28,Other,Florida,Master
+user_11,28,Other,New York,Master
+user_12,41,Male,Texas,College Senior
+user_13,53,Other,California,Master
+user_14,57,Male,Illinois,Master
+user_15,41,Female,California,Master
+user_16,20,Other,California,Bachelor
+user_17,39,Female,Texas,College Senior
+user_18,19,Male,California,High School
+user_19,41,Other,New York,PhD
+user_20,61,Male,New York,High School
+user_21,47,Female,Florida,College Senior
+user_22,55,Male,Illinois,PhD
+user_23,19,Other,California,College Senior
+user_24,38,Other,California,Master
+user_25,50,Female,Texas,PhD
+user_26,29,Male,New York,Master
+user_27,39,Other,Illinois,High School
+user_28,61,Female,Florida,High School
+user_29,42,Other,New York,PhD
+user_30,66,Other,Florida,PhD
+user_31,44,Male,Texas,College Senior
+user_32,59,Other,Texas,College Senior
+user_33,45,Male,California,Master
+user_34,33,Other,Illinois,PhD
+user_35,32,Female,Florida,High School
+user_36,64,Other,New York,College Senior
+user_37,68,Male,Texas,College Senior
+user_38,61,Male,California,High School
+user_39,69,Female,California,College Senior
+user_40,20,Other,Florida,Master
+user_41,54,Other,Texas,PhD
+user_42,68,Female,Illinois,High School
+user_43,24,Other,Texas,PhD
+user_44,38,Other,Florida,College Senior
+user_45,26,Male,Florida,College Senior
+user_46,56,Other,Texas,High School
+user_47,35,Other,Florida,Master
+user_48,21,Female,Texas,Bachelor
+user_49,42,Female,New York,High School
+user_50,31,Male,Texas,Bachelor
+user_51,67,Other,Texas,Bachelor
+user_52,26,Other,Florida,Master
+user_53,43,Other,Florida,Bachelor
+user_54,19,Male,California,Bachelor
+user_55,37,Male,California,Master
+user_56,45,Female,New York,Bachelor
+user_57,64,Male,California,Bachelor
+user_58,24,Other,Texas,Bachelor
+user_59,61,Other,Florida,High School
+user_60,25,Male,California,High School
+user_61,64,Other,California,High School
+user_62,52,Other,New York,Master
+user_63,31,Male,New York,College Senior
+user_64,34,Male,Texas,Bachelor
+user_65,53,Other,Florida,Bachelor
+user_66,67,Other,New York,Master
+user_67,57,Other,California,Bachelor
+user_68,21,Female,Florida,High School
+user_69,19,Female,Florida,College Senior
+user_70,23,Female,California,PhD
+user_71,59,Male,New York,Bachelor
+user_72,21,Female,California,High School
+user_73,46,Male,Florida,PhD
+user_74,35,Male,Illinois,College Senior
+user_75,43,Female,Illinois,PhD
+user_76,61,Female,Texas,High School
+user_77,51,Female,California,PhD
+user_78,27,Other,California,Master
+user_79,53,Female,Texas,PhD
+user_80,31,Other,Texas,Bachelor
+user_81,48,Male,Texas,Bachelor
+user_82,65,Other,Florida,Master
+user_83,32,Female,California,High School
+user_84,25,Male,Florida,Bachelor
+user_85,31,Male,Texas,College Senior
+user_86,40,Male,California,Bachelor
+user_87,57,Other,Florida,Bachelor
+user_88,38,Female,Florida,High School
+user_89,33,Male,Texas,PhD
+user_90,62,Male,California,Bachelor
+user_91,35,Male,Texas,Master
+user_92,64,Other,California,PhD
+user_93,41,Other,Illinois,College Senior
+user_94,43,Female,New York,High School
+user_95,42,Other,New York,College Senior
+user_96,62,Male,New York,PhD
+user_97,58,Female,Texas,PhD
+user_98,46,Male,Illinois,PhD
+user_99,32,Male,California,College Senior
