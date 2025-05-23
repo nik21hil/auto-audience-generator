@@ -240,6 +240,11 @@ Return only valid JSON — no markdown, no explanation.
 
         return json5.loads(cleaned)
     except Exception as e:
-        print("❌ Failed to parse response:", e)
-        print("Raw response text:", response.text if 'response' in locals() else 'No response')
-        return {}
+        # print("❌ Failed to parse response:", e)
+        # print("Raw response text:", response.text if 'response' in locals() else 'No response')
+        # return {}
+        return {
+            "error": str(e),
+            "raw_response": response.text if 'response' in locals() else "No response"
+        }
+        

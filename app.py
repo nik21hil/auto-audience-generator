@@ -44,6 +44,12 @@ prompt = st.text_area("Enter your audience description:", "Find crypto enthusias
 if st.button("Generate Audience"):
     try:
         rules_obj = extract_rules_from_prompt_llm3(prompt)
+
+        if "error" in rules_obj:
+            st.error("❌ LLM failed to return clean JSON.")
+            st.code(rules_obj["raw_response"])
+            st.stop()
+
         st.code(json.dumps(rules_obj, indent=2), language="json")
         st.subheader("🔍 Extracted Rules")
         st.json(rules_obj)
