@@ -117,6 +117,12 @@ Return valid JSON only. Do not use markdown or explanations.
         return {}
 
 def extract_rules_from_prompt_llm3(prompt):
+    api_key = os.getenv("OPENAI_API_KEY")
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
     system_msg = """
 You are an intelligent assistant that creates audience filtering rules based on user data stored in a Knowledge Graph.
 
