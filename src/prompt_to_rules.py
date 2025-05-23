@@ -4,11 +4,8 @@ import json5
 import re
 import os
 
-# openai.api_key = os.getenv("OPENROUTER_API_KEY")
-# openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
-
-client = openai.OpenAI(api_key=os.getenv("OPENROUTER_API_KEY"), base_url="https://openrouter.ai/api/v1")
-
+openai.api_key = os.getenv("OPENROUTER_API_KEY")
+openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
 
 
 def clean_json_response(raw_text):
@@ -158,9 +155,7 @@ Return only valid JSON - no markdown or explanations.
 
 """
 
-    
-    #response = openai.ChatCompletion.create(
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="mistralai/mixtral-8x7b-instruct",
         messages=[
             {"role": "system", "content": system_msg.strip()},
