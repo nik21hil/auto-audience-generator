@@ -7,7 +7,7 @@ import json
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from graph_builder import build_knowledge_graph_from_config as build_knowledge_graph
+from graph_builder import build_knowledge_graph_from_config
 from graph_queries import apply_logical_rule
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
@@ -22,12 +22,14 @@ st.title("🧠 Auto Audience Generator")
 # Load graph and matcher once
 @st.cache_resource
 def load_graph_and_matcher():
-    G = build_knowledge_graph(
-        "data/users.csv",
-        "data/products.csv",
-        "data/orders.csv",
-        "data/streaming.csv",
-        "src/graph_schema.json"
+    G = build_knowledge_graph_from_config(
+        "src/graph_schema.json",
+        {
+        "users": "data/users.csv",
+        "products": "data/products.csv",
+        "orders": "data/orders.csv",
+        "streaming": "data/streaming.csv"
+        }
     )
     matcher = SemanticMatcher(G)
     return G, matcher
