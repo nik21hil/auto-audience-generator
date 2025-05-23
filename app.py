@@ -50,6 +50,10 @@ if st.button("Generate Audience"):
             st.code(rules_obj["raw_response"])
             st.stop()
 
+        # 🔍 Show LLM rule JSON as collapsible
+        with st.expander("🔍 Show Extracted Rule JSON", expanded=False):
+            st.json(rules_obj)
+            
         for i, rule in enumerate(rules_obj.get("rules", [])):
             st.markdown(f"### 🎯 Audience {i+1}: {rule['name']}")
             audience = apply_logical_rule(G, rule, matcher=matcher)
@@ -72,10 +76,6 @@ if st.button("Generate Audience"):
             edge_labels = nx.get_edge_attributes(subG, 'label')
             nx.draw_networkx_edge_labels(subG, pos, edge_labels=edge_labels, ax=ax)
             st.pyplot(fig)
-
-        # 🔍 Show LLM rule JSON as collapsible
-        with st.expander("🔍 Show Extracted Rule JSON", expanded=False):
-            st.json(rules_obj)
 
     except Exception as e:
         st.error(f"❌ Failed to generate audience: {str(e)}")
