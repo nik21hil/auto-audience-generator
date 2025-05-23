@@ -4,7 +4,7 @@ import json5
 import re
 import os
 
-openai.api_key = os.getenv("OPENROUTER_API_KEY")
+openai.api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
 openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
 
 
