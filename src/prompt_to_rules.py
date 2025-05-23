@@ -180,7 +180,7 @@ Return only valid JSON - no markdown or explanations.
 
 
 def extract_rules_from_prompt_llm3(prompt):
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("OPENROUTER_API_KEY")
     url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
