@@ -2,6 +2,6 @@ streamlit
 pandas
 matplotlib
 networkx
-openai==0.28
+openai==0.28.1
 json5
 sentence-transformers
