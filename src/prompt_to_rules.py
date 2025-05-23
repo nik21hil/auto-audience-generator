@@ -3,6 +3,7 @@ import json
 import json5
 import re
 import os
+import requests
 
 # openai.api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
 # openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
@@ -164,15 +165,23 @@ Return only valid JSON - no markdown or explanations.
 
 """
 
-    response = openai.ChatCompletion.create(
-        model="mistralai/mixtral-8x7b-instruct",
-        messages=[
+    # response = openai.ChatCompletion.create(
+    #     model="mistralai/mixtral-8x7b-instruct",
+    #     messages=[
+    #         {"role": "system", "content": system_msg.strip()},
+    #         {"role": "user", "content": prompt.strip()}
+    #     ],
+    #     temperature=0.2,
+    #     max_tokens=512  # ← added!
+    # )
+    payload = {
+        "model": "mistralai/mixtral-8x7b-instruct",
+        "messages": [
             {"role": "system", "content": system_msg.strip()},
             {"role": "user", "content": prompt.strip()}
         ],
-        temperature=0.2,
-        max_tokens=512  # ← added!
-    )
+        "temperature": 0.3
+    }
 
     try:
         reply = response["choices"][0]["message"]["content"]
