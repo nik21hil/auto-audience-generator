@@ -4,9 +4,9 @@ import json5
 import re
 import os
 import requests
+from .utils import clean_json_response
 
 # openai.api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
-# openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
 
 openai.api_key = os.getenv("OPENROUTER_API_KEY")
 openai.api_base = "https://openrouter.ai/api/v1"
@@ -179,13 +179,14 @@ Return only valid JSON - no markdown or explanations.
         return {}
 
 
-def extract_rules_from_prompt_llm3(prompt):
+def extract_rules_from_prompt_llm3(prompt, verbose=False):
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
-        print("❌ No API key found in environment")
-    else:
-        print("🔐 API key loaded:", api_key[:8] + "..." + api_key[-4:])
-    
+        return {
+            "error": "Missing OPENROUTER_API_KEY in environment.",
+            "raw_response": None
+        }
+
     url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -220,12 +221,12 @@ Return JSON like:
   ]
 }
 Return only valid JSON — no markdown, no explanation.
-"""
+""".strip()
 
     payload = {
         "model": "mistralai/mixtral-8x7b-instruct",
         "messages": [
-            {"role": "system", "content": system_msg.strip()},
+            {"role": "system", "content": system_msg},
             {"role": "user", "content": prompt.strip()}
         ],
         "temperature": 0.3
@@ -234,19 +235,19 @@ Return only valid JSON — no markdown, no explanation.
     try:
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
-        
-        response_data = response.json()  # ✅ Only once
+        response_data = response.json()
 
         raw = response_data["choices"][0]["message"]["content"]
         cleaned = clean_json_response(raw)
+
+        if verbose:
+            print("🧠 Raw LLM Output:", raw)
+            print("🧹 Cleaned JSON:", cleaned)
+
         return json5.loads(cleaned)
-        
+
     except Exception as e:
-        # print("❌ Failed to parse response:", e)
-        # print("Raw response text:", response.text if 'response' in locals() else 'No response')
-        # return {}
         return {
             "error": str(e),
             "raw_response": response.text if 'response' in locals() else "No response"
         }
-        
