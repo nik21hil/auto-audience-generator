@@ -229,6 +229,9 @@ Return only valid JSON — no markdown, no explanation.
     try:
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
+        
+        print("📦 Full Response JSON:", response.json())  # NEW
+        
         raw = response.json()["choices"][0]["message"]["content"]
         print("🧠 Raw LLM Output:", raw)
 
