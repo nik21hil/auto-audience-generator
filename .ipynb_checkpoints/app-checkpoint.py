@@ -2,9 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
-import openai
+#import openai
 import streamlit as st
-st.write("🔧 OpenAI version:", openai.__version__)
+#st.write("🔧 OpenAI version:", openai.__version__)
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
