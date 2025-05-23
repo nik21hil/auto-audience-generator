@@ -7,7 +7,7 @@ import json
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from graph_builder import build_knowledge_graph
+from graph_builder import build_knowledge_graph_from_config as build_knowledge_graph
 from graph_queries import apply_logical_rule
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
