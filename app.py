@@ -8,8 +8,8 @@ import json
 # Add full path to src/ for Streamlit Cloud compatibility
 #sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
-from graph_builder import build_knowledge_graph
 from graph_queries import apply_logical_rule
+from graph_builder import build_knowledge_graph
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
 
