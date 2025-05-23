@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath("."))
+
 import streamlit as st
 import json
 from src.prompt_to_rules import extract_rules_from_prompt_llm3
