@@ -8,7 +8,7 @@ import requests
 # openai.api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY")
 # openai.api_base = "https://openrouter.ai/api/v1"  # ✅ note: it's api_base in v0.28
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENROUTER_API_KEY")
 openai.api_base = "https://openrouter.ai/api/v1"
 
 
@@ -181,6 +181,11 @@ Return only valid JSON - no markdown or explanations.
 
 def extract_rules_from_prompt_llm3(prompt):
     api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        print("❌ No API key found in environment")
+    else:
+        print("🔐 API key loaded:", api_key[:8] + "..." + api_key[-4:])
+    
     url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
