@@ -117,13 +117,7 @@ Return valid JSON only. Do not use markdown or explanations.
         print("Raw content:", reply)
         return {}
 
-def extract_rules_from_prompt_llm3(prompt):
-    api_key = os.getenv("OPENAI_API_KEY")
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
+def extract_rules_from_prompt_llm3_old(prompt):
     system_msg = """
 You are an intelligent assistant that creates audience filtering rules based on user data stored in a Knowledge Graph.
 
@@ -165,15 +159,64 @@ Return only valid JSON - no markdown or explanations.
 
 """
 
-    # response = openai.ChatCompletion.create(
-    #     model="mistralai/mixtral-8x7b-instruct",
-    #     messages=[
-    #         {"role": "system", "content": system_msg.strip()},
-    #         {"role": "user", "content": prompt.strip()}
-    #     ],
-    #     temperature=0.2,
-    #     max_tokens=512  # ← added!
-    # )
+    response = openai.ChatCompletion.create(
+        model="mistralai/mixtral-8x7b-instruct",
+        messages=[
+            {"role": "system", "content": system_msg.strip()},
+            {"role": "user", "content": prompt.strip()}
+        ],
+        temperature=0.2,
+        max_tokens=512  # ← added!
+    )
+
+    try:
+        reply = response["choices"][0]["message"]["content"]
+        cleaned = clean_json_response(reply)
+        return json.loads(cleaned)
+    except Exception as e:
+        print("❌ Failed to parse response:", e)
+        print("Raw content:", reply)
+        return {}
+
+
+def extract_rules_from_prompt_llm3(prompt):
+    api_key = os.getenv("OPENAI_API_KEY")
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+
+    system_msg = """
+You are an intelligent assistant that creates audience filtering rules based on user data stored in a Knowledge Graph.
+
+The graph includes users, products, and content nodes with these available fields:
+- user.age → number
+- user.gender → string
+- user.location → string
+- product.tag → list of tags (used as user interests)
+- product.category → list of categories (optional)
+- content.genre → list of genres (used as user interests)
+
+Only use these fields: age, gender, location, tag, genre
+
+Return JSON like:
+{
+  "rules": [
+    {
+      "name": "Crypto Enthusiasts",
+      "conditions": {
+        "or": [
+          { "field": "tag", "in": ["crypto", "blockchain"] },
+          { "field": "genre", "in": ["finance"] }
+        ]
+      }
+    }
+  ]
+}
+Return only valid JSON — no markdown, no explanation.
+"""
+
     payload = {
         "model": "mistralai/mixtral-8x7b-instruct",
         "messages": [
@@ -184,10 +227,16 @@ Return only valid JSON - no markdown or explanations.
     }
 
     try:
-        reply = response["choices"][0]["message"]["content"]
-        cleaned = clean_json_response(reply)
-        return json.loads(cleaned)
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        raw = response.json()["choices"][0]["message"]["content"]
+        print("🧠 Raw LLM Output:", raw)
+
+        cleaned = clean_json_response(raw)
+        print("🧹 Cleaned JSON:", cleaned)
+
+        return json5.loads(cleaned)
     except Exception as e:
         print("❌ Failed to parse response:", e)
-        print("Raw content:", reply)
+        print("Raw response text:", response.text if 'response' in locals() else 'No response')
         return {}
