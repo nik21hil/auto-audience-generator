@@ -240,9 +240,9 @@ Return only valid JSON — no markdown, no explanation.
         raw = response_data["choices"][0]["message"]["content"]
         cleaned = clean_json_response(raw)
 
-        # if verbose:
-        #     print("🧠 Raw LLM Output:", raw)
-        #     print("🧹 Cleaned JSON:", cleaned)
+        if verbose:
+            print("🧠 Raw LLM Output:", raw)
+            print("🧹 Cleaned JSON:", cleaned)
 
         return json5.loads(cleaned)
 
