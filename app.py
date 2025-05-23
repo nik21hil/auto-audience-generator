@@ -1,22 +1,16 @@
 import sys
 import os
-#sys.path.append(os.path.abspath("."))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
 import streamlit as st
 import json
+import networkx as nx
+import matplotlib.pyplot as plt
 
-# Add full path to src/ for Streamlit Cloud compatibility
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
-
-from graph_queries import apply_logical_rule
 from graph_builder import build_knowledge_graph
+from graph_queries import apply_logical_rule
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
-
-# from src.prompt_to_rules import extract_rules_from_prompt_llm3
-# from src.graph_builder import build_knowledge_graph
-# from src.graph_queries import apply_logical_rule
-# from src.semantic_matcher import SemanticMatcher
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -33,7 +27,7 @@ def load_graph_and_matcher():
         "data/products.csv",
         "data/orders.csv",
         "data/streaming.csv",
-        "graph_schema.json"
+        "src/graph_schema.json"
     )
     matcher = SemanticMatcher(G)
     return G, matcher
