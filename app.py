@@ -6,7 +6,7 @@ import streamlit as st
 import json
 
 # Add full path to src/ for Streamlit Cloud compatibility
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
 from graph_builder import build_knowledge_graph
 from graph_queries import apply_logical_rule
