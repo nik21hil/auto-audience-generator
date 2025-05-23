@@ -118,12 +118,6 @@ Return valid JSON only. Do not use markdown or explanations.
         return {}
 
 def extract_rules_from_prompt_llm3_old(prompt):
-    api_key = os.getenv("OPENAI_API_KEY")
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
     system_msg = """
 You are an intelligent assistant that creates audience filtering rules based on user data stored in a Knowledge Graph.
 
@@ -235,10 +229,14 @@ Return only valid JSON — no markdown, no explanation.
     try:
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
-        content = response.json()["choices"][0]["message"]["content"]
-        cleaned = clean_json_response(content)
-        return json.loads(cleaned)
+        raw = response.json()["choices"][0]["message"]["content"]
+        print("🧠 Raw LLM Output:", raw)
+
+        cleaned = clean_json_response(raw)
+        print("🧹 Cleaned JSON:", cleaned)
+
+        return json5.loads(cleaned)
     except Exception as e:
         print("❌ Failed to parse response:", e)
-        print("Raw content:", response.text if 'response' in locals() else 'No response')
+        print("Raw response text:", response.text if 'response' in locals() else 'No response')
         return {}
