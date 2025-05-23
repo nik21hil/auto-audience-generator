@@ -230,15 +230,12 @@ Return only valid JSON — no markdown, no explanation.
         response = requests.post(url, headers=headers, json=payload)
         response.raise_for_status()
         
-        print("📦 Full Response JSON:", response.json())  # NEW
-        
-        raw = response.json()["choices"][0]["message"]["content"]
-        print("🧠 Raw LLM Output:", raw)
+        response_data = response.json()  # ✅ Only once
 
+        raw = response_data["choices"][0]["message"]["content"]
         cleaned = clean_json_response(raw)
-        print("🧹 Cleaned JSON:", cleaned)
-
         return json5.loads(cleaned)
+        
     except Exception as e:
         # print("❌ Failed to parse response:", e)
         # print("Raw response text:", response.text if 'response' in locals() else 'No response')
