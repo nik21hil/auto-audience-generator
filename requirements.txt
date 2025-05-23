@@ -1,0 +1,7 @@
+streamlit
+pandas
+matplotlib
+networkx
+openai
+json5
+sentence-transformers
