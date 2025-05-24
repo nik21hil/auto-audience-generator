@@ -104,6 +104,23 @@ auto-audience-generator/
 
 ---
 
+## 🧾 License
 
+MIT License — feel free to fork, remix, and use.
+
+---
+
+## 🙌 Acknowledgements
+
+Built by [@nik21hil](https://github.com/nik21hil)  
+
+---
+
+## 📬 Feedback
+For issues or suggestions, feel free to open a [GitHub issue](https://github.com/nik21hil/auto-audience-generator/issues) or connect via [LinkedIn](https://linkedin.com/in/nkhlsngh).
+
+---
+
+Enjoy exploring your customer data! 🎯
 
 
