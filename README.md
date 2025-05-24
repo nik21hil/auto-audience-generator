@@ -68,11 +68,12 @@ auto-audience-generator/
 │
 ├── data/ # Sample CSVs: users, products, orders, streaming
 │
-└── src/
-├── graph_builder.py # Knowledge Graph builder
-├── graph_queries.py # Rule execution engine
-├── prompt_to_rules.py # LLM-based rule extractor
-├── semantic_matcher.py # Embedding-based semantic expander
+├── src/               # Modular Python code
+│   ├── graph_builder.py # Knowledge Graph builder
+|   ├── graph_queries.py # Rule execution engine
+|   ├── prompt_to_rules.py # LLM-based rule extractor
+|   ├── semantic_matcher.py # Embedding-based semantic expander
+
 ```
 
 ## 🛠️ Setup Instructions
