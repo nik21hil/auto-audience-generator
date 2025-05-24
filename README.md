@@ -121,6 +121,6 @@ For issues or suggestions, feel free to open a [GitHub issue](https://github.com
 
 ---
 
-Enjoy exploring your customer data! 🎯
+Enjoy building! 🎯
 
 
