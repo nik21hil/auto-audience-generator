@@ -1,17 +1,19 @@
 # 🧠 Auto Audience Generator
 
-The **Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured **Knowledge Graph (KG)**, rule-based filtering, and semantic matching.
+> The **Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured **Knowledge Graph (KG)**, rule-based filtering, and semantic matching.
+
+[![Streamlit App](https://img.shields.io/badge/Live_App-Click_to_Launch-00bfff?logo=streamlit)](https://auto-audience-generator-22sdvxi3phzzen5a4bulnw.streamlit.app/)
 
 ---
 
-## 🚀 What It Does
+## ✨ Overview
 
 This tool allows marketers, analysts, and product teams to:
 
 - Input natural-language prompts like:  
   _"Find crypto enthusiasts"_  
   _"Show users interested in fitness and wellness"_  
-  _"Target Gen Z males in California who like gaming"_
+  _"Find near graduting studnets"_
 
 - Behind the scenes, it:
   1. **Builds a Knowledge Graph** using user-product-content interaction data.
@@ -64,6 +66,53 @@ The app provides a clean and interactive web interface where you can:
 
 ---
 
+## 📊 Sample Data Overview
+
+| Dataset       | Description                              |
+| ------------- | ---------------------------------------- |
+| users.csv     | User demographics: age, gender, location |
+| products.csv  | Product info with tags/categories        |
+| orders.csv    | User-product purchase history            |
+| streaming.csv | User-content interaction & genres        |
+
+---
+
+## 📁 Folder Structure
+
+```
+auto-audience-generator/
+│
+├── app.py # Streamlit app (entry point)
+├── graph_schema.json # Schema config for KG
+├── requirements.txt
+│
+├── data/ # Sample CSVs: users, products, orders, streaming
+│
+└── src/
+├── graph_builder.py # Knowledge Graph builder
+├── graph_queries.py # Rule execution engine
+├── prompt_to_rules.py # LLM-based rule extractor
+├── semantic_matcher.py # Embedding-based semantic expander
+```
+
+## 🛠️ Setup Instructions
+# 1. Clone the repo
+git clone https://github.com/nik21hil/auto-audience-generator.git
+cd auto-audience-generator
+
+# 2. (Optional) Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Add your OpenRouter API Key (in .streamlit/secrets.toml)
+OPENROUTER_API_KEY = "your-key-here"
+
+# 5. Run the Streamlit app
+streamlit run app.py
+
 ## 🛠️ Planned Enhancements
 
 | Category              | Planned Feature                                                                 |
@@ -75,7 +124,6 @@ The app provides a clean and interactive web interface where you can:
 | 🧩 Auto Schema Build   | Ingest raw CSV + data dictionary → auto-create graph schema                     |
 | ⚡ UX Improvements     | Tag clouds, field highlights, advanced visualizations                           |
 
----
 
-## 📁 Project Structure
+
 
