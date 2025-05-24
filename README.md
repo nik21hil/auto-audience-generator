@@ -65,12 +65,12 @@ auto-audience-generator/
 ├── notebooks/         # Jupyter demo notebooks
 ├── src/               # Modular Python code
 │   ├── graph_builder.py # Knowledge Graph builder
-|   ├── graph_queries.py # Rule execution engine
-|   ├── prompt_to_rules.py # LLM-based rule extractor
-|   ├── semantic_matcher.py # Embedding-based semantic expander
+│   ├── graph_queries.py # Rule execution engine
+│   ├── prompt_to_rules.py # LLM-based rule extractor
+│   ├── semantic_matcher.py # Embedding-based semantic expander
 ├── app.py             # Main Streamlit app
 ├── requirements.txt
-└── README.md
+│── README.md
 ```
 
 ## 🛠️ Setup Instructions
