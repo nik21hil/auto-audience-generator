@@ -79,19 +79,18 @@ auto-audience-generator/
 - **Clone the repo**:
   - git clone https://github.com/nik21hil/auto-audience-generator.git
   - cd auto-audience-generator
+- **(Optional) Create virtual environment**:
+  - python3 -m venv venv
+  - source venv/bin/activate
 
-**(Optional) Create virtual environment**
-python3 -m venv venv
-source venv/bin/activate
+- **Install dependencies**:
+  - pip install -r requirements.txt
 
-**Install dependencies**
-pip install -r requirements.txt
+- **Add your OpenRouter API Key (in .streamlit/secrets.toml)**:
+  - OPENROUTER_API_KEY = "your-key-here"
 
-**Add your OpenRouter API Key (in .streamlit/secrets.toml)**
-OPENROUTER_API_KEY = "your-key-here"
-
-**Run the Streamlit app**
-streamlit run app.py
+- **Run the Streamlit app**:
+  - streamlit run app.py
 
 ## 🛠️ Planned Enhancements
 
