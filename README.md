@@ -61,19 +61,16 @@ This tool allows marketers, analysts, and product teams to:
 
 ```
 auto-audience-generator/
-│
-├── app.py # Streamlit app (entry point)
-├── graph_schema.json # Schema config for KG
-├── requirements.txt
-│
-├── data/ # Sample CSVs: users, products, orders, streaming
-│
+├── data/              # Sample CSVs
+├── notebooks/         # Jupyter demo notebooks
 ├── src/               # Modular Python code
 │   ├── graph_builder.py # Knowledge Graph builder
 |   ├── graph_queries.py # Rule execution engine
 |   ├── prompt_to_rules.py # LLM-based rule extractor
 |   ├── semantic_matcher.py # Embedding-based semantic expander
-
+├── app.py             # Main Streamlit app
+├── requirements.txt
+└── README.md
 ```
 
 ## 🛠️ Setup Instructions
