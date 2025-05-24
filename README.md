@@ -26,13 +26,13 @@ This tool allows marketers, analysts, and product teams to:
 
 ## ⚙️ Key Components
 
-| Module               | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| `graph_builder.py`   | Constructs the Knowledge Graph from CSVs based on a JSON schema             |
-| `prompt_to_rules.py` | Uses OpenRouter + LLM to turn prompts into executable logical rules         |
-| `graph_queries.py`   | Evaluates logical rules (AND/OR/nested) on the KG to select audience        |
-| `semantic_matcher.py`| Uses embedding similarity to expand keywords like "crypto" → "blockchain"   |
-| `app.py`             | Streamlit interface to run everything in one click                          |
+| Module               | Description                                                               |
+|--------------------|-----------------------------------------------------------------------------|
+| graph_builder.py   | Constructs the Knowledge Graph from CSVs based on a JSON schema             |
+| prompt_to_rules.py | Uses OpenRouter + LLM to turn prompts into executable logical rules         |
+| graph_queries.py   | Evaluates logical rules (AND/OR/nested) on the KG to select audience        |
+| semantic_matcher.py| Uses embedding similarity to expand keywords like "crypto" → "blockchain"   |
+| app.py             | Streamlit interface to run everything in one click                          |
 
 ---
 
@@ -76,7 +76,7 @@ auto-audience-generator/
 ```
 
 ## 🛠️ Setup Instructions
-**Clone the repo**
+- **Clone the repo**:
 git clone https://github.com/nik21hil/auto-audience-generator.git
 cd auto-audience-generator
 
