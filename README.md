@@ -73,6 +73,8 @@ auto-audience-generator/
 │── README.md
 ```
 
+---
+
 ## 🛠️ Setup Instructions
 - **Clone the repo**:
   - git clone https://github.com/nik21hil/auto-audience-generator.git
@@ -87,6 +89,8 @@ auto-audience-generator/
 - **Run the Streamlit app**:
   - streamlit run app.py
 
+---
+
 ## 🛠️ Planned Enhancements
 
 | Category              | Planned Feature                                                                 |
@@ -97,6 +101,8 @@ auto-audience-generator/
 | 🧠 Smarter Matching     | Expand KG and embeddings to support domain-specific synonyms                    |
 | 🧩 Auto Schema Build   | Ingest raw CSV + data dictionary → auto-create graph schema                     |
 | ⚡ UX Improvements     | Tag clouds, field highlights, advanced visualizations                           |
+
+---
 
 
 
