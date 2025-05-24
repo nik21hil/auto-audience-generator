@@ -77,8 +77,8 @@ auto-audience-generator/
 
 ## 🛠️ Setup Instructions
 - **Clone the repo**:
-git clone https://github.com/nik21hil/auto-audience-generator.git
-cd auto-audience-generator
+  - git clone https://github.com/nik21hil/auto-audience-generator.git
+  - cd auto-audience-generator
 
 **(Optional) Create virtual environment**
 python3 -m venv venv
