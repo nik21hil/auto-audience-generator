@@ -36,26 +36,6 @@ This tool allows marketers, analysts, and product teams to:
 
 ---
 
-## 🖥️ Streamlit Interface
-
-The app provides a clean and interactive web interface where you can:
-
-- Type any audience request as prompt  
-- Click `Generate Audience`  
-- View matched users, extracted rules (collapsible), and graph visualizations  
-
----
-
-## 📦 Sample Prompt Examples
-
-| Prompt                                | What It Does                                                |
-|---------------------------------------|-------------------------------------------------------------|
-| `Find crypto enthusiasts`             | Finds users with related interests like crypto/blockchain   |
-| `Show Gen Z gamers in California`     | Filters by age, location, and interest                      |
-| `Fitness & wellness fans over 40`     | Applies nested AND/OR rules across fields                   |
-
----
-
 ## ✅ Current Capabilities
 
 - [x] Multi-source Knowledge Graph with user/product/content data
@@ -96,21 +76,21 @@ auto-audience-generator/
 ```
 
 ## 🛠️ Setup Instructions
-# 1. Clone the repo
+**Clone the repo**
 git clone https://github.com/nik21hil/auto-audience-generator.git
 cd auto-audience-generator
 
-# 2. (Optional) Create virtual environment
+**(Optional) Create virtual environment**
 python3 -m venv venv
 source venv/bin/activate
 
-# 3. Install dependencies
+**Install dependencies**
 pip install -r requirements.txt
 
-# 4. Add your OpenRouter API Key (in .streamlit/secrets.toml)
+**Add your OpenRouter API Key (in .streamlit/secrets.toml)**
 OPENROUTER_API_KEY = "your-key-here"
 
-# 5. Run the Streamlit app
+**Run the Streamlit app**
 streamlit run app.py
 
 ## 🛠️ Planned Enhancements
