@@ -56,7 +56,8 @@ def load_graph_and_matcher():
 
 G, matcher = load_graph_and_matcher()
 
-st.markdown("**Enter your audience description:**")
+
+st.markdown("###### ✍️ Enter your audience description:")
 prompt = st.text_area(label="", value="Find crypto enthusiasts")
 
 if st.button("Generate Audience"):
