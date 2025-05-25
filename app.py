@@ -74,9 +74,17 @@ if st.button("Generate Audience"):
             st.stop()
 
         # Recursive display function
+
         def display_conditions(cond, indent=0):
             html = ""
             pad = "&nbsp;" * 4 * indent
+        
+            # If it's a single-item AND/OR, unwrap it
+            if "and" in cond and len(cond["and"]) == 1:
+                return display_conditions(cond["and"][0], indent)
+            if "or" in cond and len(cond["or"]) == 1:
+                return display_conditions(cond["or"][0], indent)
+        
             if "and" in cond:
                 html += f"{pad}<span style='font-size:13px;'><b>AND</b></span><br>"
                 for c in cond["and"]:
@@ -88,9 +96,17 @@ if st.button("Generate Audience"):
             else:
                 field = cond.get("field", "")
                 values = cond.get("in", [])
-                html += f"{pad}<span style='font-size:13px;'>&#8226; <code>{field}</code> in {values}</span><br>"
+                operator = cond.get("operator", "in")
+                value = cond.get("value", None)
+        
+                if operator == "in":
+                    html += f"{pad}<span style='font-size:13px;'>&#8226; <code>{field}</code> in {values}</span><br>"
+                else:
+                    html += f"{pad}<span style='font-size:13px;'>&#8226; <code>{field}</code> {operator} {value}</span><br>"
+        
             return html
 
+        
         with st.expander("🔍 Show Extracted Rule", expanded=False):
             html = display_conditions(conditions)
             st.markdown(html, unsafe_allow_html=True)
