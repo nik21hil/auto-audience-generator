@@ -252,7 +252,7 @@ Return only valid JSON — no markdown, no explanation.
             "raw_response": response.text if 'response' in locals() else "No response"
         }
 
-def extract_rules_from_prompt_llm3(prompt, verbose=True):
+def extract_rules_from_prompt_llm3(prompt, verbose=False):
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
         return {
@@ -319,9 +319,9 @@ Return only the JSON object — no markdown, no explanation.
         raw = response_data["choices"][0]["message"]["content"]
         cleaned = clean_json_response(raw)
 
-        if verbose:
-            print("🧠 Raw LLM Output:", raw)
-            print("🧹 Cleaned JSON:", cleaned)
+        #if verbose:
+        print("🧠 Raw LLM Output:", raw)
+        print("🧹 Cleaned JSON:", cleaned)
 
         return json5.loads(cleaned)
 
