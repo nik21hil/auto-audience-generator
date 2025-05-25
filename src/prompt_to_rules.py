@@ -301,7 +301,7 @@ Return only one object with a top-level key called "conditions". Example:
 }
 
 Return only valid JSON — no markdown, no explanation.
-""".strip()
+"""
 
     payload = {
         "model": "mistralai/mixtral-8x7b-instruct",
