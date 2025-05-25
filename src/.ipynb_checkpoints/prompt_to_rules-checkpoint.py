@@ -252,7 +252,7 @@ Return only valid JSON — no markdown, no explanation.
             "raw_response": response.text if 'response' in locals() else "No response"
         }
 
-def extract_rules_from_prompt_llm3(prompt, verbose=False):
+def extract_rules_from_prompt_llm3(prompt, verbose=True):
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
         return {
