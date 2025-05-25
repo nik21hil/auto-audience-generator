@@ -77,7 +77,18 @@ if st.button("Generate Audience"):
 
         # 🔍 Show LLM rule JSON as collapsible
         with st.expander("🔍 Show Extracted Rule", expanded=False):
-            st.json(rules_obj)
+            for rule in rules_obj.get("rules", []):
+                st.markdown(f"**Rule Name:** `{rule['name']}`")
+        
+                conditions = rule.get("conditions", {})
+                logic = "and" if "and" in conditions else "or"
+                condition_blocks = conditions.get(logic, [])
+        
+                st.markdown(f"**Logic Type:** `{logic.upper()}`")
+                for cond in condition_blocks:
+                    field = cond.get("field", "")
+                    values = cond.get("in", [])
+                    st.markdown(f"- `{field}` in {values}")
             
         for i, rule in enumerate(rules_obj.get("rules", [])):
             st.markdown(f"##### 🎯 Audience {i+1}: {rule['name']}")
