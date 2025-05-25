@@ -17,9 +17,33 @@ from semantic_matcher import SemanticMatcher
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Page config
-st.set_page_config(page_title="Auto Audience Generator", layout="wide")
-st.title("🧠 Auto Audience Generator")
+
+st.set_page_config(
+    page_title="Auto Audience Generator",
+    page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
+)
+
+st.markdown(
+    """
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 5px;">
+        <img src="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png" width="100">
+        <h1 style="margin: 0; font-size: 48px;">Auto Audience Generator</h1>
+    </div>
+    <p style="text-align: center; color: gray; font-size: 15px; margin-top: -10px; margin-bottom: 1px;">
+        A lightweight, no-code interface to build audience based on defined persona.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("---")
+
+st.markdown("###### 📌 Description")
+st.markdown("""
+**Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured Knowledge Graph (KG), rule-based filtering, and semantic matching.
+""")
+
+st.markdown("---")
 
 # Load graph and matcher once
 @st.cache_resource
