@@ -61,6 +61,7 @@ This tool allows marketers, analysts, and product teams to:
 
 ```
 auto-audience-generator/
+├── assets/            # To store logo images or any other artifact
 ├── data/              # Sample CSVs
 ├── notebooks/         # Jupyter demo notebooks
 ├── src/               # Modular Python code
