@@ -64,7 +64,8 @@ G, matcher = load_graph_and_matcher()
 
 # Input prompt
 st.markdown(f"##### Enter your audience description:")
-prompt = st.text_area("Enter your audience description:", "Find crypto enthusiasts")
+st.markdown("**Enter your audience description:**")
+prompt = st.text_area(label="", value="Find crypto enthusiasts")
 
 if st.button("Generate Audience"):
     try:
