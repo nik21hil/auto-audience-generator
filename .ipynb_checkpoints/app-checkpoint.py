@@ -2,9 +2,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
-#import openai
 import streamlit as st
-#st.write("🔧 OpenAI version:", openai.__version__)
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -14,10 +12,7 @@ from graph_queries import apply_logical_rule
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
 
-import networkx as nx
-import matplotlib.pyplot as plt
-
-
+# Streamlit config
 st.set_page_config(
     page_title="Auto Audience Generator",
     page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
@@ -45,16 +40,15 @@ st.markdown("""
 
 st.markdown("---")
 
-# Load graph and matcher once
 @st.cache_resource
 def load_graph_and_matcher():
     G = build_knowledge_graph_from_config(
         "src/graph_schema.json",
         {
-        "users": "data/users.csv",
-        "products": "data/products.csv",
-        "orders": "data/orders.csv",
-        "streaming": "data/streaming.csv"
+            "users": "data/users.csv",
+            "products": "data/products.csv",
+            "orders": "data/orders.csv",
+            "streaming": "data/streaming.csv"
         }
     )
     matcher = SemanticMatcher(G)
@@ -62,7 +56,6 @@ def load_graph_and_matcher():
 
 G, matcher = load_graph_and_matcher()
 
-# Input prompt
 st.markdown("**Enter your audience description:**")
 prompt = st.text_area(label="", value="Find crypto enthusiasts")
 
@@ -75,43 +68,53 @@ if st.button("Generate Audience"):
             st.code(rules_obj["raw_response"])
             st.stop()
 
-        # 🔍 Show LLM rule JSON as collapsible
+        rule = rules_obj.get("rule", {})
+        if not rule:
+            st.warning("No rule found.")
+            st.stop()
+
+        # Recursive display function
+        def display_conditions(cond, indent=0):
+            html = ""
+            pad = "&nbsp;" * 4 * indent
+            if "and" in cond:
+                html += f"{pad}<span style='font-size:13px;'><b>AND</b></span><br>"
+                for c in cond["and"]:
+                    html += display_conditions(c, indent + 1)
+            elif "or" in cond:
+                html += f"{pad}<span style='font-size:13px;'><b>OR</b></span><br>"
+                for c in cond["or"]:
+                    html += display_conditions(c, indent + 1)
+            else:
+                field = cond.get("field", "")
+                values = cond.get("in", [])
+                html += f"{pad}<span style='font-size:13px;'>&#8226; <code>{field}</code> in {values}</span><br>"
+            return html
+
         with st.expander("🔍 Show Extracted Rule", expanded=False):
-            for rule in rules_obj.get("rules", []):
-                st.markdown(f"<small><b>Rule Name:</b> <code>{rule['name']}</code></small>", unsafe_allow_html=True)
-        
-                conditions = rule.get("conditions", {})
-                logic = "and" if "and" in conditions else "or"
-                st.markdown(f"<small><b>Logic Type:</b> <code>{logic.upper()}</code></small>", unsafe_allow_html=True)
-        
-                condition_blocks = conditions.get(logic, [])
-                for cond in condition_blocks:
-                    field = cond.get("field", "")
-                    values = cond.get("in", [])
-                    st.markdown(f"<small>• <code>{field}</code> in {values}</small>", unsafe_allow_html=True)
-            
-        for i, rule in enumerate(rules_obj.get("rules", [])):
-            st.markdown(f"##### 🎯 Audience {i+1}: {rule['name']}")
-            audience = apply_logical_rule(G, rule, matcher=matcher)
-            st.success(f"Matched Users ({len(audience)}): {sorted(audience)}")
+            html = display_conditions(rule.get("conditions", {}))
+            st.markdown(html, unsafe_allow_html=True)
 
-            # Draw subgraph of matched users and their interests
-            subG = nx.DiGraph()
-            for user in audience:
-                subG.add_node(user, color='lightblue')
-                for u, v, d in G.out_edges(user, data=True):
-                    if d.get("relation") in ["purchased", "watched"]:
-                        subG.add_edge(u, v, label=d["relation"])
-                        for _, tag_node, tag_data in G.out_edges(v, data=True):
-                            if tag_data.get("relation") in ["tagged_as", "about"]:
-                                subG.add_edge(v, tag_node, label=tag_data["relation"])
+        st.markdown("##### 🎯 Final Audience")
+        audience = apply_logical_rule(G, rule, matcher=matcher)
+        st.success(f"Matched Users ({len(audience)}): {sorted(audience)}")
 
-            fig, ax = plt.subplots(figsize=(5, 3))
-            pos = nx.spring_layout(subG)
-            nx.draw(subG, pos, with_labels=True, node_color='lightgreen', edge_color='gray', node_size=500, ax=ax)
-            edge_labels = nx.get_edge_attributes(subG, 'label')
-            nx.draw_networkx_edge_labels(subG, pos, edge_labels=edge_labels, ax=ax)
-            st.pyplot(fig)
+        subG = nx.DiGraph()
+        for user in audience:
+            subG.add_node(user, color='lightblue')
+            for u, v, d in G.out_edges(user, data=True):
+                if d.get("relation") in ["purchased", "watched"]:
+                    subG.add_edge(u, v, label=d["relation"])
+                    for _, tag_node, tag_data in G.out_edges(v, data=True):
+                        if tag_data.get("relation") in ["tagged_as", "about"]:
+                            subG.add_edge(v, tag_node, label=tag_data["relation"])
+
+        fig, ax = plt.subplots(figsize=(5, 3))
+        pos = nx.spring_layout(subG)
+        nx.draw(subG, pos, with_labels=True, node_color='lightgreen', edge_color='gray', node_size=500, ax=ax)
+        edge_labels = nx.get_edge_attributes(subG, 'label')
+        nx.draw_networkx_edge_labels(subG, pos, edge_labels=edge_labels, ax=ax)
+        st.pyplot(fig)
 
     except Exception as e:
         st.error(f"❌ Failed to generate audience: {str(e)}")
