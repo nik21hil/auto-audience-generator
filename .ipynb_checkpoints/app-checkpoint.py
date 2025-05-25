@@ -63,7 +63,7 @@ def load_graph_and_matcher():
 G, matcher = load_graph_and_matcher()
 
 # Input prompt
-prompt = st.text_area("Enter your audience description:", "Find crypto enthusiasts")
+prompt = st.text_area("Enter your audience descriptio:", "Find crypto enthusiasts")
 
 if st.button("Generate Audience"):
     try:
