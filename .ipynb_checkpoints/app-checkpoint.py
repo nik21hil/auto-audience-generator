@@ -76,11 +76,11 @@ if st.button("Generate Audience"):
             st.stop()
 
         # 🔍 Show LLM rule JSON as collapsible
-        with st.expander("🔍 Show Extracted Rule JSON", expanded=False):
+        with st.expander("🔍 Show Extracted Rule", expanded=False):
             st.json(rules_obj)
             
         for i, rule in enumerate(rules_obj.get("rules", [])):
-            st.markdown(f"### 🎯 Audience {i+1}: {rule['name']}")
+            st.markdown(f"##### 🎯 Audience {i+1}: {rule['name']}")
             audience = apply_logical_rule(G, rule, matcher=matcher)
             st.success(f"Matched Users ({len(audience)}): {sorted(audience)}")
 
