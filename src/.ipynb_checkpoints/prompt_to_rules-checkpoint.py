@@ -179,7 +179,7 @@ Return only valid JSON - no markdown or explanations.
         return {}
 
 
-def extract_rules_from_prompt_llm3(prompt, verbose=False):
+def extract_rules_from_prompt_llm3_multiplerules(prompt, verbose=False):
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
         return {
@@ -220,6 +220,86 @@ Return JSON like:
     }
   ]
 }
+Return only valid JSON — no markdown, no explanation.
+""".strip()
+
+    payload = {
+        "model": "mistralai/mixtral-8x7b-instruct",
+        "messages": [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": prompt.strip()}
+        ],
+        "temperature": 0.3
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        response_data = response.json()
+
+        raw = response_data["choices"][0]["message"]["content"]
+        cleaned = clean_json_response(raw)
+
+        if verbose:
+            print("🧠 Raw LLM Output:", raw)
+            print("🧹 Cleaned JSON:", cleaned)
+
+        return json5.loads(cleaned)
+
+    except Exception as e:
+        return {
+            "error": str(e),
+            "raw_response": response.text if 'response' in locals() else "No response"
+        }
+
+def extract_rules_from_prompt_llm3(prompt, verbose=False):
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        return {
+            "error": "Missing OPENROUTER_API_KEY in environment.",
+            "raw_response": None
+        }
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+
+    system_msg = """
+You are an intelligent assistant that generates audience filtering rules based on user data stored in a Knowledge Graph.
+
+The graph includes users, products, and content nodes with the following fields:
+- user.age → number
+- user.gender → string
+- user.location → string
+- product.tag → list of tags (used as user interests)
+- content.genre → list of genres (used as user interests)
+
+Your task is to output a single logical rule with nested conditions that combine multiple fields. 
+You may use logical operators "and" and "or" in any nested combination like:
+- { "and": [ ... ] }
+- { "or": [ ... ] }
+- { "and": [ ..., { "or": [ ... ] } ] }
+
+Use only these fields: age, gender, location, tag, genre.
+
+Return only one object with a top-level key called "conditions". Example:
+
+{
+  "conditions": {
+    "and": [
+      {
+        "or": [
+          { "field": "tag", "in": ["crypto", "blockchain"] },
+          { "field": "genre", "in": ["finance"] }
+        ]
+      },
+      { "field": "age", "operator": ">", "value": 25 }
+    ]
+  }
+}
+
 Return only valid JSON — no markdown, no explanation.
 """.strip()
 
