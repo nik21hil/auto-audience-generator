@@ -105,3 +105,9 @@ if st.button("Generate Audience"):
     except Exception as e:
         st.error(f"❌ Failed to generate audience: {str(e)}")
 
+st.markdown("""
+<hr style='border: none; border-top: 1px solid #eee;' />
+<p style='text-align: center; font-size: 13px; color: gray;'>
+An open-source AI toolkit by <a href="https://github.com/nik21hil" target="_blank" style="color: #888;">@nik21hil</a> · MIT Licensed
+</p>
+""", unsafe_allow_html=True)
