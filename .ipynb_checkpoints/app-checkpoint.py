@@ -68,8 +68,8 @@ if st.button("Generate Audience"):
             st.code(rules_obj["raw_response"])
             st.stop()
 
-        rule = rules_obj.get("rule", {})
-        if not rule:
+        conditions = rules_obj.get("rule", {})
+        if not conditions:
             st.warning("No rule found.")
             st.stop()
 
@@ -92,11 +92,11 @@ if st.button("Generate Audience"):
             return html
 
         with st.expander("🔍 Show Extracted Rule", expanded=False):
-            html = display_conditions(rule.get("conditions", {}))
+            html = display_conditions(conditions)
             st.markdown(html, unsafe_allow_html=True)
 
         st.markdown("##### 🎯 Final Audience")
-        audience = apply_logical_rule(G, rule, matcher=matcher)
+        audience = apply_logical_rule(G, {"conditions": conditions}, matcher=matcher)
         st.success(f"Matched Users ({len(audience)}): {sorted(audience)}")
 
         subG = nx.DiGraph()
