@@ -267,7 +267,7 @@ def extract_rules_from_prompt_llm3(prompt, verbose=False):
     }
 
     system_msg = """
-You are an intelligent assistant that generates audience filtering rules based on user data stored in a Knowledge Graph.
+You are an intelligent assistant that generates a single, structured audience filtering rule using data from a Knowledge Graph.
 
 The graph includes users, products, and content nodes with the following fields:
 - user.age → number
@@ -276,31 +276,30 @@ The graph includes users, products, and content nodes with the following fields:
 - product.tag → list of tags (used as user interests)
 - content.genre → list of genres (used as user interests)
 
-Your task is to output a single logical rule with nested conditions that combine multiple fields. 
-You may use logical operators "and" and "or" in any nested combination like:
-- { "and": [ ... ] }
-- { "or": [ ... ] }
-- { "and": [ ..., { "or": [ ... ] } ] }
+Instructions:
+- Generate one audience rule using only the following fields: age, gender, location, tag, genre.
+- Do not invent or include any other fields like content, education_level, occupation, job_title, etc.
+- The rule must have a top-level key: "conditions".
+- Combine conditions using logical operators "and" and "or", supporting nested structures such as:
+  - { "and": [ ... ] }
+  - { "or": [ ... ] }
+  - { "and": [ ..., { "or": [ ... ] } ] }
 
-Use only these fields: age, gender, location, tag, genre.
+Additional guidance:
+- If the prompt implies abstract traits (e.g., "crypto fans", "sports lovers", "users about to graduate"), map these to relevant tag or genre values based on the prompt intent.
+- For numeric fields like age, use standard operators like ">", "<", ">=", "<=", "=".
+- If an age range is implied (e.g., "young adults", "about to retire"), return both lower and upper bound conditions inside an "and" block.
+- Avoid unnecessary use of "and"/"or" wrappers when there is only one condition.
 
-Return only one object with a top-level key called "conditions". Example:
-
+Output Format:
+Return only valid JSON structured like:
 {
   "conditions": {
-    "and": [
-      {
-        "or": [
-          { "field": "tag", "in": ["crypto", "blockchain"] },
-          { "field": "genre", "in": ["finance"] }
-        ]
-      },
-      { "field": "age", "operator": ">", "value": 25 }
-    ]
+    ...
   }
 }
 
-Return only valid JSON — no markdown, no explanation.
+Return only the JSON object — no markdown, no explanation.
 """
 
     payload = {
