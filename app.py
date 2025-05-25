@@ -68,7 +68,7 @@ if st.button("Generate Audience"):
             st.code(rules_obj["raw_response"])
             st.stop()
 
-        conditions = rules_obj.get("rule", {})
+        conditions = rules_obj.get("conditions", {})
         if not conditions:
             st.warning("No rule found.")
             st.stop()
