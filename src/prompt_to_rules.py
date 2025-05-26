@@ -329,9 +329,9 @@ Do NOT include markdown, explanations, or nested objects like "user", "product",
         raw = response_data["choices"][0]["message"]["content"]
         cleaned = clean_json_response(raw)
 
-        #if verbose:
-        print("🧠 Raw LLM Output:", raw)
-        print("🧹 Cleaned JSON:", cleaned)
+        if verbose:
+            print("🧠 Raw LLM Output:", raw)
+            print("🧹 Cleaned JSON:", cleaned)
 
         return json5.loads(cleaned)
 
