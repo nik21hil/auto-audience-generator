@@ -61,21 +61,18 @@ def evaluate_condition(user_data, condition, matcher=None, field=None, graph=Non
     # Special case: tag or genre → check through graph relationships
     if field in ["tag", "genre"] and matcher and graph and user_node:
         values = condition.get("in", [])
-        expanded_vals = []
-        for val in values:
-            expanded_vals.extend(matcher.expand(val))
-
-        found = False
+        expanded_vals = [val.lower() for val in values]
+        expanded_vals_extended = []
+        for val in expanded_vals:
+            expanded_vals_extended.extend([v.lower() for v in matcher.expand(val)])
+    
         for _, mid_node, edge_data in graph.out_edges(user_node, data=True):
             if edge_data.get("relation") in ["purchased", "watched"]:
                 for _, target_node, rel_data in graph.out_edges(mid_node, data=True):
                     if rel_data.get("relation") in ["tagged_as", "about"]:
-                        if target_node.lower() in expanded_vals:
-                            found = True
-                            break
-            if found:
-                break
-        return found
+                        if target_node.lower() in expanded_vals_extended:
+                            return True
+        return False
 
     # Standard direct field checks
     value = user_data.get(field)

@@ -277,29 +277,39 @@ The graph includes users, products, and content nodes with the following fields:
 - content.genre → list of genres (used as user interests)
 
 Instructions:
-- Generate one audience rule using only the following fields: age, gender, location, tag, genre.
-- Do not invent or include any other fields like content, education_level, occupation, job_title, etc.
+- Generate one audience rule using only the following flat fields: age, gender, location, tag, genre.
+- Do NOT group fields under keys like "user", "product", or "content". Use flat field keys like "field": "age".
 - The rule must have a top-level key: "conditions".
 - Combine conditions using logical operators "and" and "or", supporting nested structures such as:
   - { "and": [ ... ] }
   - { "or": [ ... ] }
   - { "and": [ ..., { "or": [ ... ] } ] }
 
-Additional guidance:
-- If the prompt implies abstract traits (e.g., "crypto fans", "sports lovers", "users about to graduate"), map these to relevant tag or genre values based on the prompt intent.
-- For numeric fields like age, use standard operators like ">", "<", ">=", "<=", "=".
-- If an age range is implied (e.g., "young adults", "about to retire"), return both lower and upper bound conditions inside an "and" block.
-- Avoid unnecessary use of "and"/"or" wrappers when there is only one condition.
+Field Logic:
+- Use "field", "in", and optional "operator"/"value" structure for each condition.
+- For age, support standard operators: ">", "<", ">=", "<=", "=".
+- For categorical fields (location, gender, tag, genre), use:
+  { "field": "tag", "in": ["crypto", "blockchain"] }
 
-Output Format:
-Return only valid JSON structured like:
+Return Format:
+Return **only** the JSON object. Do **not** use markdown code blocks. Do **not** provide any explanations or extra text.
+
 {
   "conditions": {
-    ...
+    "and": [
+      {
+        "or": [
+          { "field": "tag", "in": ["crypto", "blockchain"] },
+          { "field": "genre", "in": ["finance"] }
+        ]
+      },
+      { "field": "age", "operator": ">", "value": 25 },
+      { "field": "location", "in": ["California", "Texas"] }
+    ]
   }
 }
 
-Return only the JSON object — no markdown, no explanation.
+Do NOT include markdown, explanations, or nested objects like "user", "product", etc. Just return the valid JSON object.
 """
 
     payload = {
