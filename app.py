@@ -61,39 +61,11 @@ with col1:
     st.markdown("###### ✍️ Enter your audience description:")
 
 with col2:
-    st.markdown(
-        """
-        <style>
-        .clear-icon-container {
-            text-align: right;
-            padding-top: 10px;
-        }
-        .clear-icon-button {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: red;
-            vertical-align: middle;
-        }
-        </style>
-        <div class="clear-icon-container">
-            <form action="" method="post">
-                <button class="clear-icon-button" name="clear" type="submit" title="Clear input">🗑️</button>
-            </form>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-# Handle clear
-if st.session_state.get("clear"):
-    st.session_state.prompt = ""
-    st.session_state.rule_conditions = None
-    st.session_state.audience = set()
-    st.session_state.clear = False
-    st.experimental_rerun()
-
+    if st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True):
+        st.session_state.prompt = ""
+        st.session_state.rule_conditions = None
+        st.session_state.audience = set()
+        st.experimental_rerun()
 
 
 # Input prompt
