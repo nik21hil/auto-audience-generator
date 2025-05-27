@@ -40,7 +40,7 @@ st.markdown("""
 
 st.markdown("---")
 
-@st.cache_resource
+st.cache_resource
 def load_graph_and_matcher():
     G = build_knowledge_graph_from_config(
         "src/graph_schema.json",
@@ -55,6 +55,10 @@ def load_graph_and_matcher():
     return G, matcher
 
 G, matcher = load_graph_and_matcher()
+
+if st.button("🔄 Refresh Graph Cache"):
+    load_graph_and_matcher.clear()
+    st.experimental_rerun()
 
 st.markdown("#### 🛠 Debugging Info")
 
