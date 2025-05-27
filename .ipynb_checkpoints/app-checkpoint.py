@@ -15,7 +15,7 @@ from semantic_matcher import SemanticMatcher
 
 # Streamlit Page Config
 st.set_page_config(
-    page_title="Auto Audience Generatr",
+    page_title="Auto Audience Generator",
     page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
 )
 
