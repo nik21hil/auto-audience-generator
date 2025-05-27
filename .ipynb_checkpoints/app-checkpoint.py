@@ -58,12 +58,40 @@ matcher = SemanticMatcher(G)
 col1, col2 = st.columns([5, 1])
 with col1:
     st.markdown("###### ✍️ Enter your audience description:")
+
 with col2:
-    if st.button("❌ Clear"):
+    # Right-align and shrink button with custom CSS
+    st.markdown(
+        """
+        <style>
+        .clear-button-container {
+            text-align: right;
+            padding-top: 18px;
+        }
+        .clear-button-container button {
+            background-color: transparent;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            margin-right: 0px;
+        }
+        </style>
+        <div class="clear-button-container">
+            <form action="">
+                <button name="clear" type="submit">❌</button>
+            </form>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    # Watch for manual clear trigger if needed
+    if st.session_state.get("clear_triggered"):
         st.session_state.prompt = ""
         st.session_state.rule_conditions = None
         st.session_state.audience = set()
+        st.session_state.clear_triggered = False
         st.experimental_rerun()
+
 
 # Input prompt
 prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
