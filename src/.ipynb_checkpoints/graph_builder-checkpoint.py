@@ -1,8 +1,8 @@
-import pandas as pd
-import networkx as nx
-import json
-
 def build_knowledge_graph_from_config(schema_path, data_paths):
+    import pandas as pd
+    import networkx as nx
+    import json
+
     with open(schema_path, 'r') as f:
         config = json.load(f)
 
@@ -11,7 +11,7 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
     # Load all datasets
     dataframes = {k: pd.read_csv(v) for k, v in data_paths.items()}
 
-    # 1. Create all nodes
+    # 1. Create all nodes from schema
     for dataset_name, df in dataframes.items():
         for _, row in df.iterrows():
             for col, node_type in config['nodes'].items():
@@ -20,17 +20,16 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
                     if not G.has_node(node_id):
                         G.add_node(node_id, type=node_type)
 
-    # ✅ 2. Inject user attributes separately (age, gender, location)
+    # ✅ 2. Inject attributes for user nodes
     if "users" in dataframes:
         for _, row in dataframes["users"].iterrows():
-            uid = row["user_id"]
-            if G.has_node(uid):
-                # Explicitly assign attributes
-                G.nodes[uid]["age"] = int(row["age"]) if not pd.isna(row["age"]) else None
-                G.nodes[uid]["gender"] = row["gender"] if not pd.isna(row["gender"]) else None
-                G.nodes[uid]["location"] = row["location"] if not pd.isna(row["location"]) else None
+            user_id = row["user_id"]
+            if G.has_node(user_id):
+                G.nodes[user_id]["age"] = int(row["age"]) if not pd.isna(row["age"]) else None
+                G.nodes[user_id]["gender"] = row["gender"] if not pd.isna(row["gender"]) else None
+                G.nodes[user_id]["location"] = row["location"] if not pd.isna(row["location"]) else None
 
-    # 3. Create edges
+    # 3. Add edges
     for edge in config['edges']:
         src_col = edge['from']
         tgt_col = edge['to']
