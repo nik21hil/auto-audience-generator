@@ -55,15 +55,6 @@ G = build_knowledge_graph_from_config(
 )
 matcher = SemanticMatcher(G)
 
-
-# # Debugging Info
-# st.markdown("#### 🛠 Debugging Info")
-# for node, data in G.nodes(data=True):
-#     if data.get("type") == "user":
-#         st.write("👤 Sample User Node:", node)
-#         st.write("📋 Attributes:", data)
-#         break
-
 # Input Section
 st.markdown("###### ✍️ Enter your audience description:")
 prompt = st.text_area(label="", value="Find crypto enthusiasts")
