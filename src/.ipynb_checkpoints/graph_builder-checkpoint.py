@@ -1,8 +1,13 @@
-def build_knowledge_graph_from_config(schema_path, data_paths):
-    import pandas as pd
-    import networkx as nx
-    import json
+import pandas as pd
+import networkx as nx
+import json
 
+def build_knowledge_graph_from_config(schema_path, data_paths):
+    """
+    schema_path: str — path to graph_schema.json
+    data_paths: dict — keys like 'users', 'orders', 'products', 'streaming'
+                       values are file paths to CSVs
+    """
     with open(schema_path, 'r') as f:
         config = json.load(f)
 
@@ -20,7 +25,7 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
                     if not G.has_node(node_id):
                         G.add_node(node_id, type=node_type)
 
-    # ✅ 2. Inject attributes for user nodes
+    # 2. Inject attributes for user nodes
     if "users" in dataframes:
         for _, row in dataframes["users"].iterrows():
             user_id = row["user_id"]
