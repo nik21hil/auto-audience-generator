@@ -23,7 +23,17 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
                 if col in row:
                     node_id = row[col]
                     if not G.has_node(node_id):
-                        G.add_node(node_id, type=node_type)
+                        # Inject metadata for users only
+                        if node_type == "user" and dataset_name == "users":
+                            G.add_node(
+                                node_id,
+                                type="user",
+                                age=row.get("age"),
+                                gender=row.get("gender"),
+                                location=row.get("location")
+                            )
+                        else:
+                            G.add_node(node_id, type=node_type)
 
     # 2. Create edges from config
     for edge in config['edges']:
