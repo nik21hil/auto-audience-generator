@@ -58,7 +58,6 @@ matcher = SemanticMatcher(G)
 col1, col2 = st.columns([5, 1])
 with col1:
     st.markdown("###### ✍️ Enter your audience description:")
-    prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
 with col2:
     if st.button("❌ Clear"):
         st.session_state.prompt = ""
@@ -66,10 +65,9 @@ with col2:
         st.session_state.audience = set()
         st.experimental_rerun()
 
-# # Input prompt
-# st.markdown("###### ✍️ Enter your audience description:")
-# prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
-# st.session_state.prompt = prompt
+# Input prompt
+prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
+st.session_state.prompt = prompt
 
 # Session state to persist rule & audience
 if "rule_conditions" not in st.session_state:
