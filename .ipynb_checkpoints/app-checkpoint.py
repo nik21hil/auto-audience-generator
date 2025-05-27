@@ -56,7 +56,7 @@ G, matcher = build_knowledge_graph_from_config(
 matcher = SemanticMatcher(G)
 
 # Create two columns: left for label, right for trash icon
-col1, col2 = st.columns([9, 1])
+col1, col2 = st.columns([12, 1])
 
 with col1:
     st.markdown("##### ✍️ Enter your audience description:")
