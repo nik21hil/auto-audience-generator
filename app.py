@@ -19,28 +19,6 @@ st.set_page_config(
     page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
 )
 
-st.markdown("""
-    <style>
-    /* Completely remove border and background from the trash icon button */
-    div[data-testid="column"]:nth-of-type(2) button {
-        background: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        margin-top: -12px !important; /* Adjust vertical alignment */
-        font-size: 20px !important;
-        color: red !important;
-        cursor: pointer;
-    }
-
-    /* Optional: subtle hover effect */
-    div[data-testid="column"]:nth-of-type(2) button:hover {
-        opacity: 0.7;
-        transform: scale(1.1);
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # Logo + Header
 st.markdown(
     """
@@ -84,14 +62,40 @@ with col1:
     st.markdown("##### ✍️ Enter your audience description:")
 
 with col2:
-    clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
+    clear_button_html = """
+    <form action="" method="post">
+        <button title="Clear input" name="clear" type="submit" style="
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 22px;
+            color: red;
+            float: right;
+            margin-top: -6px;
+            cursor: pointer;
+        ">
+            🗑️
+        </button>
+    </form>
+    """
+    st.markdown(clear_button_html, unsafe_allow_html=True)
+    
+    if "clear" in st.session_state or st.experimental_get_query_params().get("clear"):
+        st.session_state.prompt = ""
+        st.session_state.rule_conditions = None
+        st.session_state.audience = set()
+        st.rerun()
 
-# Handle clear action
-if clear_button:
-    st.session_state.prompt = ""
-    st.session_state.rule_conditions = None
-    st.session_state.audience = set()
-    st.rerun()
+    
+# with col2:
+#     clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
+
+# # Handle clear action
+# if clear_button:
+#     st.session_state.prompt = ""
+#     st.session_state.rule_conditions = None
+#     st.session_state.audience = set()
+#     st.rerun()
 
 # Input prompt
 prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
