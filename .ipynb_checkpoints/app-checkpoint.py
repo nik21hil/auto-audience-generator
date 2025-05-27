@@ -75,7 +75,7 @@ matcher = SemanticMatcher(G)
 col1, col2 = st.columns([5, 1])
 
 with col1:
-    st.markdown("###### ✍️ Enter your audience description:")
+    st.markdown("##### ✍️ Enter your audience description:")
 
 with col2:
     clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
