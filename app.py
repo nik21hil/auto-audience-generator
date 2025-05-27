@@ -55,10 +55,8 @@ G, matcher = build_knowledge_graph_from_config(
 ), None
 matcher = SemanticMatcher(G)
 
-col1, col2 = st.columns([5, 1])
-with col1:
-    
-with col2:
+cols = st.columns([5, 5, 5, 2])  # Adjust ratios to shift button to the right
+with cols[-1]:
     if st.button("❌ Clear"):
         st.session_state.prompt = ""
         st.session_state.rule_conditions = None
