@@ -56,6 +56,14 @@ def load_graph_and_matcher():
 
 G, matcher = load_graph_and_matcher()
 
+st.markdown("#### 🛠 Debugging Info")
+
+# Show one user node and its attributes
+for node, data in G.nodes(data=True):
+    if data.get("type") == "user":
+        st.write("👤 Sample User Node:", node)
+        st.write("📋 Attributes:", data)
+        break
 
 st.markdown("###### ✍️ Enter your audience description:")
 prompt = st.text_area(label="", value="Find crypto enthusiasts")
