@@ -13,24 +13,37 @@ from graph_queries import apply_logical_rule
 from prompt_to_rules import extract_rules_from_prompt_llm3
 from semantic_matcher import SemanticMatcher
 
-# Page config
-st.set_page_config(page_title="Auto Audience Generator", layout="wide", page_icon="🎯")
+# Streamlit Page Config
+st.set_page_config(
+    page_title="Auto Audience Generator",
+    page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
+)
 
-# Header
-st.markdown("""
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <img src="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png" width="70">
-        <h1 style="margin-bottom: 0;">Auto Audience Generator</h1>
+# Logo + Header
+st.markdown(
+    """
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 5px;">
+        <img src="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png" width="100">
+        <h1 style="margin: 0; font-size: 48px;">Auto Audience Generator</h1>
     </div>
-    <p style="margin-top: -10px; color: gray;">LLM-powered tool to generate user audiences using KG + natural language + rules</p>
-""", unsafe_allow_html=True)
+    <p style="text-align: center; color: gray; font-size: 15px; margin-top: -10px; margin-bottom: 1px;">
+        A lightweight, no-code interface to build audience based on defined persona.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
-st.markdown("###### 📌 Description")
-st.markdown("Auto Audience Generator is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured Knowledge Graph (KG), rule-based filtering, and semantic matching.")
 st.markdown("---")
 
-# Load Graph and Matcher
-#
+# Description
+st.markdown("###### 📌 Description")
+st.markdown("""
+**Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured Knowledge Graph (KG), rule-based filtering, and semantic matching.
+""")
+st.markdown("---")
+
+# Load Graph
+#st.cache_resource
 G, matcher = build_knowledge_graph_from_config(
     "src/graph_schema.json",
     {
