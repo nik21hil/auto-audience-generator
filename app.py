@@ -55,18 +55,21 @@ G, matcher = build_knowledge_graph_from_config(
 ), None
 matcher = SemanticMatcher(G)
 
-cols = st.columns([5, 5, 5, 5])  # Adjust ratios to shift button to the right
-with cols[-1]:
+col1, col2 = st.columns([5, 1])
+with col1:
+    st.markdown("###### ✍️ Enter your audience description:")
+    prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
+with col2:
     if st.button("❌ Clear"):
         st.session_state.prompt = ""
         st.session_state.rule_conditions = None
         st.session_state.audience = set()
         st.experimental_rerun()
 
-# Input prompt
-st.markdown("###### ✍️ Enter your audience description:")
-prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
-st.session_state.prompt = prompt
+# # Input prompt
+# st.markdown("###### ✍️ Enter your audience description:")
+# prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
+# st.session_state.prompt = prompt
 
 # Session state to persist rule & audience
 if "rule_conditions" not in st.session_state:
