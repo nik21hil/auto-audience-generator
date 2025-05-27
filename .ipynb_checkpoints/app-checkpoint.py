@@ -33,6 +33,14 @@ st.markdown(
 )
 st.markdown("---")
 
+# Description
+st.markdown("###### 📌 Description")
+st.markdown("""
+**Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured Knowledge Graph (KG), rule-based filtering, and semantic matching.
+""")
+
+st.markdown("---")
+
 # Load Graph
 #st.cache_resource
 def load_graph_and_matcher():
