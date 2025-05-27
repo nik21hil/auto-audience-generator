@@ -62,40 +62,14 @@ with col1:
     st.markdown("##### ✍️ Enter your audience description:")
 
 with col2:
-    clear_button_html = """
-    <form action="" method="post">
-        <button title="Clear input" name="clear" type="submit" style="
-            background: none;
-            border: none;
-            padding: 0;
-            font-size: 22px;
-            color: red;
-            float: right;
-            margin-top: -6px;
-            cursor: pointer;
-        ">
-            🗑️
-        </button>
-    </form>
-    """
-    st.markdown(clear_button_html, unsafe_allow_html=True)
-    
-if "clear" in st.session_state or st.experimental_get_query_params().get("clear"):
+    clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
+
+# Handle clear action
+if clear_button:
     st.session_state.prompt = ""
     st.session_state.rule_conditions = None
     st.session_state.audience = set()
     st.rerun()
-
-    
-# with col2:
-#     clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
-
-# # Handle clear action
-# if clear_button:
-#     st.session_state.prompt = ""
-#     st.session_state.rule_conditions = None
-#     st.session_state.audience = set()
-#     st.rerun()
 
 # Input prompt
 prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
