@@ -34,6 +34,7 @@ st.markdown(
 st.markdown("---")
 
 # Load Graph
+#st.cache_resource
 def load_graph_and_matcher():
     G = build_knowledge_graph_from_config(
         "src/graph_schema.json",
