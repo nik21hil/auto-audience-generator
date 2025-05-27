@@ -125,8 +125,8 @@ if st.button("🎯 Generate Audience", use_container_width=True):
             csv = pd.DataFrame({"user_id": list(st.session_state.audience)}).to_csv(index=False)
             st.download_button
             (
-                "📥 Download All Users as CSV", 
-                data=csv, 
+                "📥 Download All Users as CSV",
+                csv, 
                 file_name="audience_users.csv",
                 key="download_csv_button" 
             )
