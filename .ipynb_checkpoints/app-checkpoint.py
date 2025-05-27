@@ -57,6 +57,7 @@ matcher = SemanticMatcher(G)
 
 col1, col2 = st.columns([5, 1])
 with col1:
+    
 with col2:
     if st.button("❌ Clear"):
         st.session_state.prompt = ""
