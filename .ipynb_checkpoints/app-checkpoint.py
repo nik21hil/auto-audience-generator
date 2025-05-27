@@ -55,18 +55,36 @@ G, matcher = build_knowledge_graph_from_config(
 ), None
 matcher = SemanticMatcher(G)
 
+# Create two columns: left for label, right for trash icon
 col1, col2 = st.columns([5, 1])
 
 with col1:
     st.markdown("###### ✍️ Enter your audience description:")
 
 with col2:
-    if st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True):
-        st.session_state.prompt = ""
-        st.session_state.rule_conditions = None
-        st.session_state.audience = set()
-        st.experimental_rerun()
+    clear_button = st.button("🗑️", key="clear_prompt", help="Clear input", use_container_width=True)
 
+# Handle clear action
+if clear_button:
+    st.session_state.prompt = ""
+    st.session_state.rule_conditions = None
+    st.session_state.audience = set()
+    st.rerun()
+
+
+st.markdown("""
+    <style>
+    /* Shrink and clean trash icon button */
+    div[data-testid="column"]:nth-of-type(2) button {
+        background: none;
+        border: none;
+        font-size: 22px !important;
+        padding: 4px 6px;
+        color: red;
+        text-align: right;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Input prompt
 prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
