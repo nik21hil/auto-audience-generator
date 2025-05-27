@@ -19,6 +19,21 @@ st.set_page_config(
     page_icon="https://raw.githubusercontent.com/nik21hil/auto-audience-generator/main/assets/ns_logo1_transparent.png",
 )
 
+st.markdown("""
+    <style>
+    /* Shrink and clean trash icon button */
+    div[data-testid="column"]:nth-of-type(2) button {
+        background: none;
+        border: none;
+        font-size: 22px !important;
+        padding: 4px 6px;
+        color: red;
+        text-align: right;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 # Logo + Header
 st.markdown(
     """
