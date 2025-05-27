@@ -80,11 +80,11 @@ with col2:
     """
     st.markdown(clear_button_html, unsafe_allow_html=True)
     
-    if "clear" in st.session_state or st.experimental_get_query_params().get("clear"):
-        st.session_state.prompt = ""
-        st.session_state.rule_conditions = None
-        st.session_state.audience = set()
-        st.rerun()
+if "clear" in st.session_state or st.experimental_get_query_params().get("clear"):
+    st.session_state.prompt = ""
+    st.session_state.rule_conditions = None
+    st.session_state.audience = set()
+    st.rerun()
 
     
 # with col2:
