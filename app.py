@@ -55,9 +55,19 @@ G, matcher = build_knowledge_graph_from_config(
 ), None
 matcher = SemanticMatcher(G)
 
+col1, col2 = st.columns([5, 1])
+with col1:
+with col2:
+    if st.button("❌ Clear"):
+        st.session_state.prompt = ""
+        st.session_state.rule_conditions = None
+        st.session_state.audience = set()
+        st.experimental_rerun()
+
 # Input prompt
-st.markdown("### ✍️ Enter your audience description:")
-prompt = st.text_area(label="", value="Find crypto enthusiasts")
+st.markdown("###### ✍️ Enter your audience description:")
+prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
+st.session_state.prompt = prompt
 
 # Session state to persist rule & audience
 if "rule_conditions" not in st.session_state:
@@ -67,7 +77,7 @@ if "audience" not in st.session_state:
 
 # Step 1: Extract Rule
 st.markdown("---")
-if st.button("🧠 Create Rule"):
+if st.button("🧠 Create Rule", use_container_width=True):
     with st.spinner("Extracting rule from LLM..."):
         rules_obj = extract_rules_from_prompt_llm3(prompt)
         if "error" in rules_obj:
@@ -101,24 +111,31 @@ if st.session_state.rule_conditions:
 
 # Step 2: Apply Rule
 st.markdown("---")
-if st.button("🎯 Generate Audience"):
+if st.button("🎯 Generate Audience", use_container_width=True):
     with st.spinner("Filtering matched users..."):
         st.session_state.audience = apply_logical_rule(G, {"conditions": st.session_state.rule_conditions}, matcher=matcher)
         st.success(f"✅ Total Matched Users: {len(st.session_state.audience)}")
 
         # Sample users
         if st.session_state.audience:
-            st.markdown("### 👥 Sample Users:")
-            df = pd.DataFrame({"user_id": list(st.session_state.audience)[:10]})
-            st.dataframe(df)
+            # st.markdown("### 👥 Sample Users:")
+            # df = pd.DataFrame({"user_id": list(st.session_state.audience)[:10]})
+            # st.dataframe(df)
 
             # Download CSV
             csv = pd.DataFrame({"user_id": list(st.session_state.audience)}).to_csv(index=False)
-            st.download_button("📥 Download All Users as CSV", data=csv, file_name="audience_users.csv")
+            st.download_button
+            (
+                "📥 Download All Users as CSV", 
+                data=csv, 
+                file_name="audience_users.csv",
+                key="download_csv_button" 
+            )
+            
 
 # Step 3: Visualize Graph
 st.markdown("---")
-if st.button("🕸️ Visualize Graph"):
+if st.button("🕸️ Visualize Graph", use_container_width=True):
     with st.spinner("Rendering matched user subgraph..."):
         subG = nx.DiGraph()
         for user in st.session_state.audience:
