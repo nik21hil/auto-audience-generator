@@ -21,18 +21,19 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    /* Shrink and clean trash icon button */
+    /* Target button inside the second column */
     div[data-testid="column"]:nth-of-type(2) button {
-        background: none;
-        border: none;
-        font-size: 22px !important;
-        padding: 4px 6px;
+        all: unset;
+        font-size: 24px !important;
         color: red;
         text-align: right;
+        cursor: pointer;
+    }
+    div[data-testid="column"]:nth-of-type(2) button:hover {
+        opacity: 0.7;
     }
     </style>
 """, unsafe_allow_html=True)
-
 
 # Logo + Header
 st.markdown(
@@ -85,21 +86,6 @@ if clear_button:
     st.session_state.rule_conditions = None
     st.session_state.audience = set()
     st.rerun()
-
-
-st.markdown("""
-    <style>
-    /* Shrink and clean trash icon button */
-    div[data-testid="column"]:nth-of-type(2) button {
-        background: none;
-        border: none;
-        font-size: 22px !important;
-        padding: 4px 6px;
-        color: red;
-        text-align: right;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # Input prompt
 prompt = st.text_area(label="", value=st.session_state.get("prompt", ""))
