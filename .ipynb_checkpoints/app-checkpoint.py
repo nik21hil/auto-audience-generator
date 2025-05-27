@@ -56,41 +56,44 @@ G, matcher = build_knowledge_graph_from_config(
 matcher = SemanticMatcher(G)
 
 col1, col2 = st.columns([5, 1])
+
 with col1:
     st.markdown("###### ✍️ Enter your audience description:")
 
 with col2:
-    # Right-align and shrink button with custom CSS
     st.markdown(
         """
         <style>
-        .clear-button-container {
+        .clear-icon-container {
             text-align: right;
-            padding-top: 18px;
+            padding-top: 10px;
         }
-        .clear-button-container button {
-            background-color: transparent;
+        .clear-icon-button {
+            background: none;
             border: none;
-            font-size: 22px;
+            font-size: 18px;
             cursor: pointer;
-            margin-right: 0px;
+            color: red;
+            vertical-align: middle;
         }
         </style>
-        <div class="clear-button-container">
-            <form action="">
-                <button name="clear" type="submit">❌</button>
+        <div class="clear-icon-container">
+            <form action="" method="post">
+                <button class="clear-icon-button" name="clear" type="submit" title="Clear input">🗑️</button>
             </form>
         </div>
         """,
         unsafe_allow_html=True
     )
-    # Watch for manual clear trigger if needed
-    if st.session_state.get("clear_triggered"):
-        st.session_state.prompt = ""
-        st.session_state.rule_conditions = None
-        st.session_state.audience = set()
-        st.session_state.clear_triggered = False
-        st.experimental_rerun()
+
+# Handle clear
+if st.session_state.get("clear"):
+    st.session_state.prompt = ""
+    st.session_state.rule_conditions = None
+    st.session_state.audience = set()
+    st.session_state.clear = False
+    st.experimental_rerun()
+
 
 
 # Input prompt
