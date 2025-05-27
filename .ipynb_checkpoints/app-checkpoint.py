@@ -21,16 +21,22 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    /* Target button inside the second column */
+    /* Completely remove border and background from the trash icon button */
     div[data-testid="column"]:nth-of-type(2) button {
-        all: unset;
-        font-size: 24px !important;
-        color: red;
-        text-align: right;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-top: -12px !important; /* Adjust vertical alignment */
+        font-size: 20px !important;
+        color: red !important;
         cursor: pointer;
     }
+
+    /* Optional: subtle hover effect */
     div[data-testid="column"]:nth-of-type(2) button:hover {
         opacity: 0.7;
+        transform: scale(1.1);
     }
     </style>
 """, unsafe_allow_html=True)
