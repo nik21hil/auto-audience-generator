@@ -3,11 +3,6 @@ import networkx as nx
 import json
 
 def build_knowledge_graph_from_config(schema_path, data_paths):
-    """
-    schema_path: str — path to graph_schema.json
-    data_paths: dict — keys like 'users', 'orders', 'products', 'streaming'
-                       values are file paths to CSVs
-    """
     with open(schema_path, 'r') as f:
         config = json.load(f)
 
@@ -23,19 +18,19 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
                 if col in row:
                     node_id = row[col]
                     if not G.has_node(node_id):
-                        # Inject metadata for users only
-                        if node_type == "user" and dataset_name == "users":
-                            G.add_node(
-                                node_id,
-                                type="user",
-                                age=row.get("age"),
-                                gender=row.get("gender"),
-                                location=row.get("location")
-                            )
-                        else:
-                            G.add_node(node_id, type=node_type)
+                        G.add_node(node_id, type=node_type)
 
-    # 2. Create edges from config
+    # ✅ 2. Inject user attributes separately (age, gender, location)
+    if "users" in dataframes:
+        for _, row in dataframes["users"].iterrows():
+            uid = row["user_id"]
+            if G.has_node(uid):
+                # Explicitly assign attributes
+                G.nodes[uid]["age"] = int(row["age"]) if not pd.isna(row["age"]) else None
+                G.nodes[uid]["gender"] = row["gender"] if not pd.isna(row["gender"]) else None
+                G.nodes[uid]["location"] = row["location"] if not pd.isna(row["location"]) else None
+
+    # 3. Create edges
     for edge in config['edges']:
         src_col = edge['from']
         tgt_col = edge['to']
@@ -53,4 +48,3 @@ def build_knowledge_graph_from_config(schema_path, data_paths):
     print("Number of nodes:", G.number_of_nodes())
     print("Number of edges:", G.number_of_edges())
     return G
-    
