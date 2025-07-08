@@ -2,7 +2,7 @@
 
 > The **Auto Audience Generator** is a smart, LLM-powered tool designed to automatically generate targeted user audiences from natural language prompts using a structured **Knowledge Graph (KG)**, rule-based filtering, and semantic matching.
 
-[![Streamlit App](https://img.shields.io/badge/Live_App-Click_to_Launch-00bfff?logo=streamlit)](https://auto-audience-generator-22sdvxi3phzzen5a4bulnw.streamlit.app/)
+[![Streamlit App](https://img.shields.io/badge/Live_App-Click_to_Launch-00bfff?logo=streamlit)](https://auto-audience-generator-22sdvxi3phzzen5a4bulnw.streamlit.app/) | ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
