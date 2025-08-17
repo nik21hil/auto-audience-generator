@@ -105,20 +105,22 @@ auto-audience-generator/
 
 ---
 
-## 🧾 License
+## 🤝 **Contributing**
 
-MIT License — feel free to fork, remix, and use.
-
----
-
-## 🙌 Acknowledgements
-
-Built by [@nik21hil](https://github.com/nik21hil)  
+Contributions are welcome. Please open an issue or pull request to discuss improvements, features, or bug fixes.
 
 ---
 
-## 📬 Feedback
-For issues or suggestions, feel free to open a [GitHub issue](https://github.com/nik21hil/auto-audience-generator/issues) or connect via [LinkedIn](https://linkedin.com/in/nkhlsngh).
+## 📄 **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🌐 **Author**
+
+**Nikhil Singh**  
+[GitHub](https://github.com/nik21hil) | [LinkedIn](https://www.linkedin.com/in/nkhlsngh/)
 
 ---
 
